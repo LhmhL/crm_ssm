@@ -28,6 +28,9 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
+    <!--处理异常组件扫描器-->
+    <context:component-scan base-package="com.bjpowernode.crm.handler" />
+
     <!--注解驱动-->
     <mvc:annotation-driven />
 
