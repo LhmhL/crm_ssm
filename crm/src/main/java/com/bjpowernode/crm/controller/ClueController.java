@@ -44,14 +44,12 @@ public class ClueController {
     //执行线索添加操作
     @RequestMapping(value = "/save.do",method = RequestMethod.POST)
     @ResponseBody
-    private Map<String, Boolean> save(Clue clue, HttpServletRequest request){
+    private boolean save(Clue clue, HttpServletRequest request){
         clue.setId(UUIDUtil.getUUID());
         clue.setCreateTime(DateTimeUtil.getSysTime());
         clue.setCreateBy(((User)request.getSession().getAttribute("user")).getName());
         boolean flag = clueService.save(clue);
-        Map<String, Boolean> map = new HashMap<>();
-        map.put("success",flag);
-        return map;
+        return flag;
     }
 
     @RequestMapping("/detail.do")
@@ -74,11 +72,9 @@ public class ClueController {
     //解除关联
     @RequestMapping(value = "/unbund.do",method = RequestMethod.POST)
     @ResponseBody
-    private Map<String, Boolean> unbund(String id){
+    private boolean unbund(String id){
         boolean flag = clueService.unbund(id);
-        Map<String, Boolean> map = new HashMap<>();
-        map.put("success",flag);
-        return map;
+        return flag;
     }
 
     //查询市场活动列表( 根据名称模糊查询+排除掉已经关联指定线索的列表 )
@@ -96,12 +92,10 @@ public class ClueController {
     //执行关联市场活动的操作
     @RequestMapping("/bund.do")
     @ResponseBody
-    private Map<String, Boolean> bund(String cid, HttpServletRequest request){
+    private boolean bund(String cid, HttpServletRequest request){
         String[] aids = request.getParameterValues("aid");
         boolean flag = clueService.bund(cid,aids);
-        Map<String, Boolean> map = new HashMap<>();
-        map.put("success",flag);
-        return map;
+        return flag;
     }
 
     //为搜索模态窗口的 搜索框 绑定事件,搜索市场活动，执行搜索并展现市场活动列表的操作

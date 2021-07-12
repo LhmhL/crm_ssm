@@ -47,17 +47,14 @@ public class ActivityController {
     //为保存按钮绑定事件，执行添加操作
     @RequestMapping("/save.do")
     @ResponseBody
-    private Map<String,Boolean> save(Activity activity, HttpServletRequest request) {
+    private boolean save(Activity activity, HttpServletRequest request) {
         activity.setId(UUIDUtil.getUUID());
         //创建时间，当前系统时间
         activity.setCreateTime(DateTimeUtil.getSysTime());
         //创建人:当前登录用户
         activity.setCreateBy(((User) request.getSession().getAttribute("user")).getName());
-
         boolean flag = activityService.save(activity);
-        Map<String,Boolean> map = new HashMap<>();
-        map.put("success",flag);
-        return map;
+        return flag;
     }
 
     //分页查询
@@ -80,12 +77,10 @@ public class ActivityController {
 
     //删除市场活动
     @RequestMapping(value = "/delete.do",method = RequestMethod.POST)
-    private Map<String,Boolean> delete(HttpServletRequest request){
+    private boolean delete(HttpServletRequest request){
         String[] ids = request.getParameterValues("id");
         boolean flag = activityService.delete(ids);
-        Map<String,Boolean> map = new HashMap<>();
-        map.put("success",flag);
-        return map;
+        return flag;
     }
 
     //进入到查询用户信息列表和根据市场活动id查询单挑记录的操作
@@ -99,15 +94,13 @@ public class ActivityController {
 
     @RequestMapping("/update.do")
     @ResponseBody
-    private Map<String,Boolean> update(Activity activity,HttpServletRequest request){
+    private boolean update(Activity activity,HttpServletRequest request){
         //修改时间，当前系统时间
         activity.setEditTime(DateTimeUtil.getSysTime());
         //修改人:当前登录用户
         activity.setEditBy(((User) request.getSession().getAttribute("user")).getName());
         boolean flag = activityService.update(activity);
-        Map<String,Boolean> map = new HashMap<>();
-        map.put("success",flag);
-        return map;
+        return flag;
     }
 
     //跳转到详细信息页的操作
@@ -133,11 +126,9 @@ public class ActivityController {
     //删除备注操作
     @ResponseBody
     @RequestMapping("/deleteRemark.do")
-    private Map<String,Boolean> deleteRemark(String id){
+    private boolean deleteRemark(String id){
         boolean flag = activityService.deleteRemark(id);
-        Map<String,Boolean> map = new HashMap<>();
-        map.put("success",flag);
-        return map;
+        return flag;
     }
 
     //添加备注

@@ -78,6 +78,13 @@
       <version>5.2.5.RELEASE</version>
     </dependency>
 
+    <!--aspectj依赖(aop)-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aspects</artifactId>
+      <version>5.2.5.RELEASE</version>
+    </dependency>
+
     <!--JSON-->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
